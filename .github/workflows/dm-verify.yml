@@ -1,0 +1,20 @@
+# Managed by the plugin manager: do not edit. Put own steps into another file under .github/workflows/.
+name: dm-verify
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python3 -B scripts/run_tests.py
+      - run: python3 -B scripts/plugin.py check
+      - run: python3 -B scripts/verify/structure.py --source .
+      - run: python3 -B scripts/verify/standards.py --source .
+      - run: python3 -B scripts/verify/conventions.py --source .
+      - run: python3 -B scripts/verify/docs.py --source .
+      - run: python3 -B scripts/verify/hashes.py --source .

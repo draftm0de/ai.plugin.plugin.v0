@@ -1,0 +1,9 @@
+#!/bin/sh
+# Managed by the plugin manager: checks the standards before every commit.
+# Git runs it only after you activate it once per clone: make install-hooks
+run() { out=$(python3 -B "$@" --source . 2>&1) || { printf '%s\n' "$out" >&2; exit 1; }; }
+run scripts/verify/structure.py
+run scripts/verify/standards.py
+run scripts/verify/conventions.py
+run scripts/verify/docs.py
+run scripts/verify/hashes.py

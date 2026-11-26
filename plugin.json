@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "plugin-v0",
+  "description": "Plugin für viele viele Dinge",
+  "extensions": {
+    "io.zyris.distribution": {
+      "skillRoot": "skills",
+      "catalogs": false
+    },
+    "com.openai": {
+      "interface": {
+        "displayName": "Plugin V0"
+      }
+    }
+  },
+  "repository": "https://github.com/draftm0de/ai.plugin.plugin.v0",
+  "author": {
+    "name": "Peter Fux"
+  },
+  "license": "MIT"
+}

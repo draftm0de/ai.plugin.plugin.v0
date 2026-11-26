@@ -1,0 +1,10 @@
+{
+  "name": "plugin-v0",
+  "description": "Plugin für viele viele Dinge",
+  "author": {
+    "name": "Peter Fux"
+  },
+  "repository": "https://github.com/draftm0de/ai.plugin.plugin.v0",
+  "license": "MIT",
+  "displayName": "Plugin V0"
+}
