@@ -12,13 +12,13 @@ Plugin V0 comes with the following skills, one per task. In Claude Code you call
 
 ## 📖 Skills
 
-### plugin-v0
+### meeting-tasks
 
 `/plugin-v0`
 
-Not implemented yet.
+You give the skill your meeting notes and get a task list: description, owner and due date. What the notes do not say is not made up but marked as "open". It reads text you paste or a file ending in `.txt`, `.md` or `.markdown`. It does not read audio, PDF or Word, and it sends nothing to other task tools.
 
-📖 [/plugin-v0 – More](skills/plugin-v0.md)
+📖 [/plugin-v0 – More](skills/meeting-tasks.md)
 
 <hr>
 

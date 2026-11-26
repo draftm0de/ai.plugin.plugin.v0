@@ -5,6 +5,7 @@ BASE_CATALOGUE with the entries of its own failures and calls render_failure; it
 import argparse
 import json
 from pathlib import Path
+import sys
 
 LANGUAGES = ('en', 'de')
 DEFAULT_LANGUAGE = 'en'
@@ -50,12 +51,14 @@ LAYOUT = {
         'stopped': 'The {action} action was stopped, because {cause}. {changed}',
         'then': 'Then call /{plugin}:{skill} again.',
         'nothing': 'Nothing was changed.',
+        'unsure': 'Whether anything was changed is not known.',
     },
     'de': {
         'failed': 'Die Aktion {action} konnte nicht abgeschlossen werden, weil {cause}. {changed}',
         'stopped': 'Die Aktion {action} wurde abgebrochen, weil {cause}. {changed}',
         'then': 'Rufe danach /{plugin}:{skill} erneut auf.',
         'nothing': 'Es wurde nichts geändert.',
+        'unsure': 'Ob etwas geändert wurde, ist nicht bekannt.',
     },
 }
 
@@ -158,3 +161,27 @@ def run(skill, argv, plugin, out, err, configure, body, catalogue=None):
         code, facts = 'UNKNOWN', {}
     err.write(render_failure(catalogue, code, language, plugin, skill, **facts) + '\n')
     return 1
+
+
+def main(argv=None, out=None, err=None):
+    """The finished "cause not known" message for a failure no script reported (a command of the host failed):
+    python3 -B messages_base.py --skill <skill> [--language <tag>]. The model writes it unchanged."""
+    argv = sys.argv[1:] if argv is None else argv
+    out = out or sys.stdout
+    err = err or sys.stderr
+    plugin, language = plugin_name_from(__file__), language_in(argv)
+    try:
+        parser = _Parser(prog='messages_base', add_help=False)
+        parser.add_argument('--skill', required=True)
+        parser.add_argument('--language')
+        args = parser.parse_args(argv)
+    except Failure as failure:
+        err.write(render_failure(BASE_CATALOGUE, failure.code, language, plugin, None) + '\n')
+        return 1
+    language = pick_language(args.language)
+    out.write(render_failure(BASE_CATALOGUE, 'UNKNOWN', language, plugin, args.skill, changed=LAYOUT[language]['unsure']) + '\n')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

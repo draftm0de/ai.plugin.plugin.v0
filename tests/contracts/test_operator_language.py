@@ -34,6 +34,16 @@ class OperatorLanguageTests(unittest.TestCase):
         other.mkdir()
         self.assertTrue(json.loads(call(other).stdout)['needs_choice'])  # another project is unaffected
 
+    def test_an_explicit_change_replaces_only_the_preference_of_that_project(self):
+        other = self.project / 'other'
+        other.mkdir()
+        call(self.project, '--set', 'de')
+        call(other, '--set', 'de')
+        self.assertEqual({'operator_language': 'en', 'needs_choice': False}, json.loads(call(self.project, '--set', 'en').stdout))
+        self.assertEqual('en', json.loads(call(self.project).stdout)['operator_language'])
+        self.assertEqual('de', json.loads(call(other).stdout)['operator_language'])
+        self.assertEqual(['operator.json'], [p.name for p in (self.project / '.project').iterdir()])
+
     def test_an_invalid_tag_is_rejected_with_a_finished_message_and_nothing_is_written(self):
         result = call(self.project, '--set', 'not valid', '--skill', 'count', '--message-language', 'en')
         self.assertEqual((1, ''), (result.returncode, result.stdout))

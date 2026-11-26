@@ -12,13 +12,13 @@ Plugin V0 bringt die folgenden Skills mit, je einen pro Aufgabe. In Claude Code 
 
 ## 📖 Skills
 
-### plugin-v0
+### meeting-tasks
 
 `/plugin-v0`
 
-Noch nicht implementiert.
+Du gibst dem Skill deine Meeting-Notizen und bekommst eine Aufgabenliste: Beschreibung, verantwortliche Person und Termin. Was in den Notizen nicht steht, wird nicht erfunden, sondern als „offen“ markiert. Er liest Text, den du einfügst, oder eine Datei mit der Endung `.txt`, `.md` oder `.markdown`. Audio, PDF und Word liest er nicht, und er überträgt nichts in andere Aufgabenwerkzeuge.
 
-📖 [/plugin-v0 – Mehr dazu](skills/plugin-v0.md)
+📖 [/plugin-v0 – Mehr dazu](skills/meeting-tasks.md)
 
 <hr>
 

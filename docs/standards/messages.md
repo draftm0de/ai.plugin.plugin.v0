@@ -41,6 +41,9 @@ per line, and the remaining sentences follow the block. Nothing else uses a bloc
 - A failure without a code, an error of the host or a crash gets the same layout with "the cause is not known (an
   unexpected error)", a repeat and a read-only check as ways. The raw text stays technical detail, shown only when the
   person asks.
+- When no script of the plugin reported the failure (a command fails, a tool is missing), the skill obtains that text with
+  `python3 -B skills/_shared/scripts/messages_base.py --skill <skill> --language <operator language>` and writes it
+  unchanged; it never words such a message itself.
 
 ## Evidence
 
